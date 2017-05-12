@@ -78,7 +78,7 @@ gulp.task("build", ["jsmin", "cssmin", "htmlrev"]);
 //启动服务
 gulp.task("webserver", ["build"], function () {
     gulp.watch("./src/css/*.sass", ["cssmin"]);
-    gulp.watch("./src/html/*.html", ["html"]);
+    gulp.watch("./src/html/*.html", ["htmlrev"]);
     gulp.src('./build')
         .pipe(webserver({
             livereload: true,
@@ -95,7 +95,7 @@ gulp.task("webserver", ["build"], function () {
                 });
                 next();
             },
-            open: "/html/index.html"
+            open: "/html/defer.html"
         }));
 });
 //压缩图片

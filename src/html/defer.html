@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>defer</title>
+</head>
+<body>
+<script type="text/javascript" src="../js/common/angular.js"></script>
+<script type="text/javascript" src="../js/common/jquery.js"></script>
+<script type="text/javascript">
+    //    jq的延迟对象使用
+    //    deferred的对象对于每个要进行注册的操作创建一个deferred对象
+    //    resolve是注册成功
+    //    reject是注册失败
+    //    notify注册进行中的操作
+    //    when并行操作
+    //    done 成功的回调（针对并行操作）
+    //    fail 失败的回调（针对并行操作）
+    //    then 串行操作
+    var wait=function(msg){
+        var $defer= $.Deferred();
+        if(msg){
+            $defer.resolve(msg)
+        }else{
+            $defer.reject("失败")
+        }
+        return $defer.promise();
+    };
+    function getdata(url){
+        var datas=null;
+        $.ajax({
+            url:url,
+            async:false,
+            success:function(json){
+                datas=json;
+            }
+        });
+        return datas;
+    }
+    var fn1=wait(getdata("http://localhost:8000/index"));
+    var fn2=wait(getdata("http://localhost:8000/smock"));
+    var arr=[];
+    fn1.then(function (data) {
+        arr.push(data);
+        return fn2;
+    }).then(function (data) {
+        arr.push(data);
+        console.log(arr);
+    })
+
+</script>
+</body>
+</html>
