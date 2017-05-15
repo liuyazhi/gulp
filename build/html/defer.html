@@ -37,8 +37,8 @@
         });
         return datas;
     }
-    var fn1=wait(getdata("http://localhost:8000/index"));
-    var fn2=wait(getdata("http://localhost:8000/smock"));
+    var fn1=wait(getdata("/index"));
+    var fn2=wait(getdata("/smock"));
     var arr=[];
     fn1.then(function (data) {
         arr.push(data);

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>provide</title>
+</head>
+<body ng-app="myapp" ng-controller="p">
+<script type="text/javascript" src="../js/common/angular.js"></script>
+<script type="text/javascript">
+    var app=angular.module('myapp',[]);
+    app.controller('p',function(serviceP,servicePO,serviceS,serviceSO){
+        console.log(serviceP);
+        console.log(servicePO);
+        console.log(serviceS);
+        console.log(serviceSO);
+    });
+    app.config(function($provide){
+        //用provide方法自定义服务
+        $provide.provider("serviceP",function(){
+            this.$get=function(){
+                return 'message'
+            }
+        });
+        $provide.provider("servicePO",function(){
+            this.$get=function(){
+                return [1,2,3]
+            }
+        });
+        //用service方法自定义服务,返回对象必须为引用类型，不能为基本类型
+        $provide.service('serviceS',function(){
+            return "message"
+        });
+        $provide.service('serviceSO',function(){
+            return {
+                message:"service自定义的服务"
+            }
+        })
+    });
+</script>
+</body>
+</html>

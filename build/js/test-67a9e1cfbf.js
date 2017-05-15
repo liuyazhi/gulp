@@ -1,1 +1,0 @@
-var test="hahah";console.log(1111),module.exports=test;

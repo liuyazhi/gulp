@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>查询筛选排序</title>
+    <link type="text/css" rel="stylesheet" href="../css/bootstrap.css">
+</head>
+<body ng-app="myapp">
+<div ng-controller="ft">
+    <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="search.id">
+        </div>
+        <button type="submit" class="btn btn-default">Search</button>
+    </form>
+    <table class="table">
+        <thead>
+        <tr>
+            <th ng-click="change('id')">产品id</th>
+            <th ng-click="change('name')">产品名称</th>
+            <th ng-click="change('price')">产品价格</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="items in data | filter:search | orderBy:order+type">
+            <td>{{items.id}}</td>
+            <td>{{items.name}}</td>
+            <td>{{items.price}}</td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<script type="text/javascript" src="../js/common/jquery.js"></script>
+<script type="text/javascript" src="../js/common/angular.js"></script>
+<script type="text/javascript">
+    /*app.service('data', function () {
+        return [
+            {
+                id: '1001',
+                name: "iphone4",
+                price: "3000"
+            },
+            {
+                id: '1002',
+                name: "iphone5",
+                price: "4000"
+            },
+            {
+                id: '1003',
+                name: "iphone6",
+                price: "5000"
+            },
+            {
+                id: '1004',
+                name: "iphone7",
+                price: "6000"
+            }
+        ]
+    });*/
+    var app = angular.module('myapp', []);
+    app.controller('ft', function ($scope,$http) {
+        /*var data=null;
+        $.ajax({
+            url:'/filter',
+            async:false,
+            success:function(json){
+                data=json;
+                return data;
+            }
+        });*/
+        //简写
+        /*$http.get('/filter').then(function(res){
+            $scope.data=res.data;
+        });*/
+        $http({
+            method: 'GET',
+            url: '/filter'
+        }).then(function(res) {
+            $scope.data = res.data;
+        }, function () {
+            console.log('err')
+        });
+        $scope.type = "id";
+        $scope.order = "";
+        $scope.change = function (type) {
+            $scope.type = type;
+            if ($scope.order === '') {
+                $scope.order = "-"
+            } else {
+                $scope.order = ""
+            }
+        }
+    })
+</script>
+</body>
+</html>

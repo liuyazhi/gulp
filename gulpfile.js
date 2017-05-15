@@ -16,12 +16,12 @@ const url = require('url');
 const datajson=require('./data/main.js');//请求的mock数据文件
 //js压缩
 gulp.task('jsmin', function () {
-    gulp.src('src/js/*.js')
-        .pipe(uglify())
-        .pipe(rev())//MD5版本控制
-        .pipe(gulp.dest('./build/js'))
-        .pipe(rev.manifest())//生成一个rev-manifest.json
-        .pipe(gulp.dest("./rev/js"));//将rev-manifest.json存放到的路径
+    gulp.src('src/js/**/*.js')
+        //.pipe(uglify())
+        //.pipe(rev())//MD5版本控制
+        .pipe(gulp.dest('./build/js'));
+        //.pipe(rev.manifest())//生成一个rev-manifest.json
+        //.pipe(gulp.dest("./rev/js"));//将rev-manifest.json存放到的路径
 });
 //合并
 gulp.task('concat', function () {
@@ -52,13 +52,17 @@ gulp.task('cssmin', function () {
     gulp.src('src/css/*.sass')
         .pipe(sass())
         .pipe(cleanCSS())//css压缩
-        .pipe(rev())//MD5版本控制
-        .pipe(gulp.dest('./build/css'))
-        .pipe(rev.manifest())//生成一个rev-manifest.json
-        .pipe(gulp.dest("./rev/css"));//将rev-manifest.json存放到的路径
+        //.pipe(rev())//MD5版本控制
+        .pipe(gulp.dest('./build/css'));
+        //.pipe(rev.manifest())//生成一个rev-manifest.json
+        //.pipe(gulp.dest("./rev/css"));//将rev-manifest.json存放到的路径
+});
+gulp.task('css', function () {
+    gulp.src('src/css/*.css')
+        .pipe(gulp.dest('./build/css'));
 });
 //文件名替换
-gulp.task('htmlrev', function () {
+gulp.task('htmlrev',["cssmin"], function () {
     gulp.src(['rev/**/*.json', './src/html/*.html'])
         .pipe(revcollector({
             replaceReved: true,
@@ -71,32 +75,37 @@ gulp.task('htmlrev', function () {
             }//执行文件内css名的替换
         }))
         .pipe(gulp.dest('./build/html'));
+
+
 });
 //执行全部
-gulp.task("build", ["jsmin", "cssmin", "htmlrev"]);
+gulp.task("build", ["jsmin", "cssmin", "htmlrev","css"]);
 
 //启动服务
 gulp.task("webserver", ["build"], function () {
     gulp.watch("./src/css/*.sass", ["cssmin"]);
     gulp.watch("./src/html/*.html", ["htmlrev"]);
-    gulp.src('./build')
-        .pipe(webserver({
-            livereload: true,
-            directoryListing: true,
-            middleware: function (req, res, next) {
-                const reqPath = url.parse(req.url).pathname;
-                const routes = datajson.data();
-                routes.forEach(function (i) {
-                    console.log(i.route);
-                    console.log(reqPath);
-                    if (i.route == reqPath) {
-                        i.handle(req, res, next)
-                    }
-                });
-                next();
-            },
-            open: "/html/defer.html"
-        }));
+    setTimeout(function(){
+        gulp.src('./build')
+            .pipe(webserver({
+                livereload: true,
+                directoryListing: true,
+                middleware: function (req, res, next) {
+                    const reqPath = url.parse(req.url).pathname;
+                    const routes = datajson.data();
+                    routes.forEach(function (i) {
+                        console.log(i.route);
+                        console.log(reqPath);
+                        if (i.route == reqPath) {
+                            i.handle(req, res, next)
+                        }
+                    });
+                    next();
+                },
+                open: "/html/filter.html"
+            }));
+    },1000);
+
 });
 //压缩图片
 gulp.task('imagemin', function () {

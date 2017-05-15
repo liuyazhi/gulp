@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>server</title>
+</head>
+<body ng-app="myapp">
+<script type="text/javascript" src="../js/common/angular.js"></script>
+<script type="text/javascript">
+    var app=angular.module('myapp',[]);
+    app.run(function($http,$timeout,$interval,$log,$location){
+        //$http
+        //简写
+        $http.get('/index').then(function(res){
+            console.log(res.data);
+        },function(){
+            console.log('err');
+        });
+        //请求  method可以改为post
+        $http({
+            method: 'GET',
+            url: '/index'
+        }).then(function (res) {
+            console.log(res.data);
+        }, function () {
+            console.log('err');
+        });
+        //$timeout
+        $timeout(function(){
+            console.log('setTimeout');
+        },2000);
+        //$interval
+        $interval(function(){
+            console.log('setInterval');
+        },2000,4);
+        //$log
+        $log.log($location);
+    });
+</script>
+</body>
+</html>
