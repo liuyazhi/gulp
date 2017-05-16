@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>tab</title>
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <link rel="stylesheet" href="../css/common.css">
+    <link rel="stylesheet" href="../css/reset.css">
+    <link rel="stylesheet" href="../css/tab.css">
+</head>
+<body ng-app="myapp">
+<div id="tab-wrapper">
+    <header>
+        <a href="#" class="logo">
+            <i class="iconfont icon-k f26 text-white"></i>
+        </a>
+
+        <h3>酷狗音乐</h3>
+        <span class="down">下载酷狗</span>
+        <a href="#" class="search">
+            <i class="iconfont icon-sou f20 text-white"></i>
+        </a>
+    </header>
+    <nav>
+        <ul>
+            <li class="on"><a href="#/new">新歌</a></li>
+            <li><a href="#/rank">排行</a></li>
+            <li><a href="#/list">歌单</a></li>
+            <li><a href="#/singer">歌手</a></li>
+        </ul>
+    </nav>
+    <div ng-view>
+
+    </div>
+</div>
+<script src="../js/common/angular.js"></script>
+<script src="../js/common/angular-route.js"></script>
+<script src="../js/common/jquery.js"></script>
+<script>
+    var app = angular.module('myapp', ['ngRoute']);
+    app.config(['$routeProvider', function ($routeProvider) {
+        $routeProvider
+                .when('/new', {
+                    templateUrl: 'views/new.html',
+                    controller: "new"
+                })
+                .when('/rank', {
+                    templateUrl: 'views/rank.html',
+                    controller: "rank"
+                })
+                .when('/list', {
+                    templateUrl: 'views/list.html',
+                    controller:"list"
+                })
+                .when('/singer', {
+                    templateUrl: 'views/singer.html',
+                    controller:"singer"
+                })
+                .otherwise({redirectTo: '/new'});
+    }]);
+    //new
+    app.service('newdata', function () {
+        return [
+            {
+                name: "田馥甄-当你(live)"
+            },
+            {
+                name: "韩寒、亭东小伙伴-在雨中【乘风破浪推广曲】"
+            },
+            {
+                name: "张杰-三生三世【三生三世十里桃花主题曲】"
+            },
+            {
+                name: "EXID-上下"
+            },
+            {
+                name: "魏晨-旅程"
+            },
+            {
+                name: "田馥甄-当你(live)"
+            }
+        ]
+    });
+    app.controller('new', function ($scope,newdata) {
+        $scope.newdata = newdata
+    });
+    //rank
+    app.service('rankdata', function () {
+        return [
+            {
+                src: "../images/rank1.jpg",
+                name:"酷狗飙升榜"
+            },
+            {
+                src: "../images/rank2.jpg",
+                name:"酷狗TOP500"
+            },
+            {
+                src: "../images/rank3.jpg",
+                name:"网络红歌榜"
+            },
+            {
+                src: "../images/rank4.jpg",
+                name:"DJ热歌榜"
+            },
+            {
+                src: "../images/rank1.jpg",
+                name:"酷狗飙升榜"
+            }
+        ]
+    });
+    app.controller('rank', function ($scope,rankdata) {
+        $scope.rankdata = rankdata
+    });
+    //list
+    app.service('listdata', function () {
+        return [
+            {
+                src: "../images/list1.jpg",
+                name:"梦想的声音 合辑",
+                count:36207563
+            },
+            {
+                src: "../images/list2.jpg",
+                name:"围炉音乐会 合辑",
+                count:372385
+            },
+            {
+                src: "../images/list3.jpg",
+                name:"白首华语挚爱情歌",
+                count:46890991
+            },
+            {
+                src: "../images/list4.jpg",
+                name:"最是粤语情深处",
+                count:626714
+            },
+            {
+                src: "../images/list1.jpg",
+                name:"梦想的声音 合辑",
+                count:36207563
+            }
+        ]
+    });
+    app.controller('list', function ($scope,listdata) {
+        $scope.listdata = listdata
+    });
+    //singer
+    app.service('singerdata', function () {
+        return [
+            {
+                name:['华语男歌手',"华语女歌手","华语组合"]
+            },
+            {
+                name:['日韩男歌手',"日韩女歌手","日韩组合"]
+            },
+            {
+                name:['欧美男歌手',"欧美女歌手","欧美组合"]
+            }
+        ]
+    });
+    app.controller('singer', function ($scope,singerdata) {
+        $scope.singerdata = singerdata
+    });
+    //点击高亮
+    $('nav').on('click', 'li', function () {
+        $(this).addClass('on').siblings().removeClass();
+    })
+</script>
+</body>
+</html>

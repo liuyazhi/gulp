@@ -1,0 +1,17 @@
+<div id="new-content" ng-app="myapp" ng-controller="new">
+    <div class="new-banner">
+        <ul>
+            <li><img src="../images/banner.jpg" alt=""></li>
+        </ul>
+    </div>
+    <div class="new-main">
+        <ul>
+            <li ng-repeat="items in newdata">
+                {{items.name}}
+                <a href="#" class="dload">
+                    <i class="iconfont icon-xiazai f18"></i>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

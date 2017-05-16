@@ -1,0 +1,152 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body, #tab-wrapper,#new-wrapper {
+  font-size: .12rem;
+  width: 100%;
+  background: #fbfbfb;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  display: -webkit-flex;
+  -webkit-flex-direction: column;
+}
+header{
+  height: .44rem;
+  background: #2CA2F9;
+  line-height: .44rem;
+  position: relative;
+  color:#fff;
+  .logo{
+    position: absolute;
+    top: 0;
+    left: 5px;
+  }
+  h3{
+    display:inline-block;
+    padding-left: 40px;
+    font-size:18px;
+  }
+  .down{
+    width: .9rem;
+    border-radius:5px;
+    border:1px solid #fff;
+    padding:4px;
+    margin-left: 20px;
+  }
+  .search{
+    position: absolute;
+    top: 3px;
+    right: 5px;
+  }
+}
+nav{
+  ul{
+    display:-webkit-flex;
+    text-align:center;
+    background: #fff;
+    -webkit-align-items: center;
+    li{
+      height: .4rem;
+      -webkit-flex:1;
+      padding: 10px;
+    }
+  }
+}
+#new-content{
+  .new-banner{
+    width: 100%;
+    margin-top: 5px;
+    ul{
+      width: 100%;
+      li{
+        width: 100%;
+        height: 1.2rem;
+        img{
+          width: 100%;
+          height: 100%;
+        }
+      }
+    }
+  }
+  .new-main{
+    ul{
+      li{
+        height: .5rem;
+        line-height:.5rem;
+        padding-left: 15px;
+        border-bottom:1px solid #ccc;
+        position: relative;
+        .dload{
+          position: absolute;
+          top: 0;
+          right: 10px;
+        }
+      }
+    }
+  }
+}
+#rank-content,#list-content{
+  dl{
+    height: .9rem;
+    padding: 10px;
+    display:-webkit-flex;
+    border-bottom:1px solid #ccc;
+    dt{
+      img{
+        width: 100%;
+        height: 100%;
+      }
+    }
+    dd{
+      padding-left: 30px;
+      -webkit-flex-grow:1;
+      position: relative;
+      line-height:.7rem;
+      .more{
+        position: absolute;
+        right: 0;
+      }
+    }
+  }
+  .list-dl{
+    dd{
+      line-height:35px;
+      .listen{
+        display:block;
+      }
+      .more{
+        position: absolute;
+        right: 0;
+        top: 20px;
+      }
+    }
+
+  }
+}
+#singer-content{
+  background: #fff;
+  padding: 10px;
+  ul{
+    background: #fbfbfb;
+    padding: 10px;
+    padding-top: 0;
+    border:1px solid #ccc;
+    border-radius:7px;
+    margin-top: 10px;
+    display:-webkit-flex;
+    -webkit-flex-direction: column;
+    li{
+      height: .4rem;
+      padding: 4px;
+      -webkit-flex-grow:1;
+      line-height:.4rem;
+      border-bottom:1px solid #ccc;
+    }
+  }
+}
+.on{
+  border-bottom:3px solid #2CA2F9;
+}

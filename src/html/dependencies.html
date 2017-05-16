@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>依赖注入</title>
+</head>
+<body ng-app="myapp">
+<div ng-controller="ft"></div>
+<script src="../js/common/angular.js"></script>
+<script>
+    // 定义一个模块
+    var app = angular.module("myapp", [])
+            .value("valuedata", 12345)
+            .constant('constantdata',11111)
+            .config(function(constantdata){
+                console.log(constantdata);
+            });
+    app.value('valuedata',"maodo");
+    app.constant('constantdata',"tutu");
+    app.controller('ft', function(valuedata,constantdata) {
+        console.log(valuedata);
+        console.log(constantdata);
+    });
+    //value不能在config中使用，但是值可以更改
+    //constant可以在config中使用，但是值不能更改
+    //provider 用this.$get
+    //service 返回对象为引用类型 不能为基本类型
+    //factory 均可
+</script>
+</body>
+</html>

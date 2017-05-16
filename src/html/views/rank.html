@@ -1,0 +1,11 @@
+<div id="rank-content" ng-app="myapp" ng-controller="rank">
+    <dl ng-repeat="items in rankdata">
+        <dt><img ng-src="{{items.src}}" alt=""></dt>
+        <dd>
+            {{items.name}}
+            <a href="#" class="more">
+                <i class="iconfont icon-youjiantou-copy f20"></i>
+            </a>
+        </dd>
+    </dl>
+</div>

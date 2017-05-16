@@ -62,9 +62,9 @@ gulp.task('css', function () {
         .pipe(gulp.dest('./build/css'));
 });
 //文件名替换
-gulp.task('htmlrev',["cssmin"], function () {
+gulp.task('htmlrev', function () {
     gulp.src(['rev/**/*.json', './src/html/*.html'])
-        .pipe(revcollector({
+        /*.pipe(revcollector({
             replaceReved: true,
             dirReplacements: {
                 'css': '../css',
@@ -73,7 +73,7 @@ gulp.task('htmlrev',["cssmin"], function () {
                 //    return '//cdn' + (Math.floor(Math.random() * 9) + 1) + '.' + 'exsample.dot' + '/img/' + manifest_value;
                 //}
             }//执行文件内css名的替换
-        }))
+        }))*/
         .pipe(gulp.dest('./build/html'));
 
 
